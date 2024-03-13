@@ -1,0 +1,6 @@
+[package]
+name = "utils"
+description = "Utilities for setting up drivers and peripherals for the RP2040 microcontroller using the `embassy` framework."
+rust-version.workspace = true
+version.workspace = true
+edition.workspace = true

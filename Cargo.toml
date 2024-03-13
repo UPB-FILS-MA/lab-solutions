@@ -1,0 +1,31 @@
+# This file is used for defining a `workspace`. A workspace is a set of packages that
+# share the same `Cargo.lock` and output directory.
+
+# This table is used to specify the member crates of this workspace.
+[workspace]
+members = ["utils", "lab02/bare_metal", "lab02/pac", "lab02/embassy"]
+exclude = ["build_script"]
+# The resolver is a component responsible for determining the versions of 
+# dependencies that should be used to build a Rust project.
+resolver = "2"
+
+# The table is where you define keys that can be inherited by members of a workspace.
+[workspace.package]
+# Write your name and email here!
+authors = ["Your Name <your.email@stud.fils.upb.ro"]
+# Rust follows the concept of Semantic Versioning.
+version = "0.1.0"
+# The version of the Rust language and compiler your package will be compiled with.
+rust-version = "1.75"
+# This tag is used to specify which edition of the Rust language the project is using.
+edition = "2021"
+
+# This section allow us to modify the configurations for the `release` profile.
+[profile.release]
+# This setting controls the ammount of debug information included in the
+# compiled binary, 2 being the highest setting possible.
+debug = 2
+panic="abort"
+lto=true
+opt-level="z"
+codegen-units=1

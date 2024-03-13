@@ -1,0 +1,32 @@
+name: ci-checker
+on: [push, merge_group]
+jobs:
+  ci-checker:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Update local toolchain
+        run: |
+          rustup update
+
+      - name: Toolchain info
+        run: |
+          cargo --version --verbose
+          rustc --version
+          rustfmt --version    
+
+      - name: Compile check
+        run: |
+          cargo check
+
+      - name: Format check
+        run: |
+          cargo fmt --check
+      
+      - name: Clippy check
+        run: |
+          cargo clippy
