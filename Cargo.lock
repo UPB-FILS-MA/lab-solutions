@@ -60,7 +60,6 @@ dependencies = [
 name = "bare_metal"
 version = "0.1.0"
 dependencies = [
- "cortex-m",
  "cortex-m-rt",
  "embedded-hal 1.0.0",
  "rp2040-boot2",
@@ -135,7 +134,6 @@ checksum = "8ec610d8f49840a5b376c69663b6369e71f4b34484b9b2eb29fb918d92516cb9"
 dependencies = [
  "bare-metal",
  "bitfield",
- "critical-section",
  "embedded-hal 0.2.7",
  "volatile-register",
 ]
@@ -300,7 +298,6 @@ checksum = "11157ac094ffbdde99aa67b23417ebdd801842852b500e395a45a9c0aac03e4a"
 name = "embassy"
 version = "0.1.0"
 dependencies = [
- "cortex-m",
  "cortex-m-rt",
  "defmt",
  "embassy-executor",
@@ -944,7 +941,6 @@ checksum = "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92"
 name = "pac"
 version = "0.1.0"
 dependencies = [
- "cortex-m",
  "cortex-m-rt",
  "embedded-hal 1.0.0",
  "rp2040-boot2",

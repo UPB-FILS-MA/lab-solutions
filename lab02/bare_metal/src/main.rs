@@ -29,7 +29,7 @@ const GPIO_OUT_CLR: *mut u32 = 0xd000_0018 as *mut u32;
 const LED: u32 = 25;
 
 struct PinDriver {
-    pin: u32
+    pin: u32,
 }
 
 impl PinDriver {
@@ -74,8 +74,9 @@ fn main() -> ! {
         match value {
             0 => led.set_low(),
             _ => led.set_high(),
-        }.unwrap();
-        
+        }
+        .unwrap();
+
         for _ in 0..50000 {
             unsafe { asm!("nop") }
         }

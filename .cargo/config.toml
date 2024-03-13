@@ -1,0 +1,28 @@
+# This file is used for configuring Cargo's behavior for your Rust project.
+
+# This section is used for defining the configuration options for the build process.
+[build]
+# Specify the target triple we are building for (in our case, we are building
+# for the RP2040 chip, which is based on the ARM Cortex-M0+ architecture).
+#
+#   * `thumbv6m` - Indicates that it's a Thumb instruction set with version 6 
+#                  (commonly used for Cortex-M0+)
+#
+#   *   `none`   - Indicates that there is no operating system
+#
+#   *   `eabi`   - Indicates the EABI (Embedded Application Binary Interface) 
+#                  calling convention.
+target = "thumbv6m-none-eabi"
+
+# This section is used to specify environment variables that should be set when
+# running Cargo commands.
+[env]
+# This environment variable is used by the `defmt` crate to specify the level of
+# logging. This crate supports five levels of logging ranked by severity from
+# lowest to highest:
+#   * `trace`
+#   * `debug`
+#   * `info`
+#   * `warn`
+#   * `error`
+DEFMT_LOG = "debug"

@@ -19,14 +19,14 @@ jobs:
           rustc --version
           rustfmt --version    
 
-      - name: Compile check
-        run: |
-          cargo check
-
       - name: Format check
         run: |
           cargo fmt --check
+
+      - name: Compile check
+        run: |
+          cargo check
       
       - name: Clippy check
         run: |
-          cargo clippy
+          cargo clippy -- -D warnings

@@ -4,7 +4,11 @@
 use core::panic::PanicInfo;
 
 use embassy_executor::Spawner;
-use embassy_rp::{bind_interrupts, gpio, peripherals::USB, usb::{Driver, InterruptHandler}};
+use embassy_rp::{
+    bind_interrupts, gpio,
+    peripherals::USB,
+    usb::{Driver, InterruptHandler},
+};
 use embassy_time::Timer;
 use gpio::{Level, Output};
 use log::info;
@@ -25,7 +29,6 @@ async fn main(spawner: Spawner) {
 
     let driver = Driver::new(p.USB, Irqs);
     spawner.spawn(logger_task(driver)).unwrap();
-
 
     loop {
         info!("high");
