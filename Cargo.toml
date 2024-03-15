@@ -3,7 +3,7 @@
 
 # This table is used to specify the member crates of this workspace.
 [workspace]
-members = ["utils", "lab02/bare_metal", "lab02/pac", "lab02/embassy"]
+members = ["utils", "lab02/bare_metal", "lab02/pac", "lab02/embassy", "lab02/input"]
 exclude = ["build_script"]
 # The resolver is a component responsible for determining the versions of 
 # dependencies that should be used to build a Rust project.

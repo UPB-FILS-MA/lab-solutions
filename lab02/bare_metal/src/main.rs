@@ -1,89 +1,70 @@
 #![no_main]
 #![no_std]
 
-use core::arch::asm;
 use core::convert::Infallible;
 use core::panic::PanicInfo;
-use core::ptr::read_volatile;
-use core::ptr::write_volatile;
 
-use cortex_m_rt::entry;
 use embedded_hal::digital::ErrorType;
 use embedded_hal::digital::OutputPin;
 
-#[link_section = ".boot_loader"]
-#[used]
-pub static BOOT_LOADER: [u8; 256] = rp2040_boot2::BOOT_LOADER_W25Q080;
+// TODO 1 - add the RP2040 bootloader
 
-// reset IO Bank0
-const RESET: u32 = 0x4000_c000;
-const CLR: u32 = 0x3000;
+// const LED: u32 = TODO 2 - add here the GPIO pin used for the LED;
 
-const RESET_DONE: u32 = 0x4000_c008;
-
-const GPIOX_CTRL: u32 = 0x4001_4004;
-const GPIO_OE_SET: *mut u32 = 0xd000_0024 as *mut u32;
-const GPIO_OUT_SET: *mut u32 = 0xd000_0014 as *mut u32;
-const GPIO_OUT_CLR: *mut u32 = 0xd000_0018 as *mut u32;
-
-const LED: u32 = 25;
+/* Exercise 2 */
 
 struct PinDriver {
-    pin: u32,
+    // TODO 10 - store the number of the pin
 }
 
 impl PinDriver {
-    pub fn new(pin: u32) -> PinDriver {
-        let gpio_ctrl = (GPIOX_CTRL + 8 * pin) as *mut u32;
-        unsafe {
-            write_volatile(gpio_ctrl, 5);
-            write_volatile(GPIO_OE_SET, 1 << pin);
-        };
-        PinDriver { pin }
-    }
+    // TODO 11 - define a function that takes as a parameter a pin number:
+    //           - set the LED pin the SIO function in IO_BANK0
+    //           - returns a `PinDriver` structure`
 }
 
+// The driver will never fail
 impl ErrorType for PinDriver {
     type Error = Infallible;
 }
 
 impl OutputPin for PinDriver {
     fn set_low(&mut self) -> Result<(), Self::Error> {
-        unsafe { write_volatile(GPIO_OUT_CLR, 1 << self.pin) }
+        // TODO 12 - set the pin low
         Ok(())
     }
 
     fn set_high(&mut self) -> Result<(), Self::Error> {
-        unsafe { write_volatile(GPIO_OUT_SET, 1 << self.pin) }
+        // TODO 13 - set the pin high
         Ok(())
     }
 }
 
-#[entry]
+// TODO 3 - make the main function the entry point
+//          delete #[allow(unused)]
+#[allow(unused)]
 fn main() -> ! {
-    unsafe {
-        write_volatile((RESET + CLR) as *mut u32, 1 << 5);
-        while read_volatile(RESET_DONE as *const u32) & (1 << 5) == 0 {}
-    }
+    // TODO 4 - enable the IO_BANK0 peripheral
 
-    let mut led = PinDriver::new(LED);
+    // TODO 5 - set the LED pin the SIO function in IO_BANK0
 
+    // TODO 6 - set the LED pin as output in SIO
+
+    // TODO 7 - set the value of LED to HIGH
+
+    /* Exercise 3 */
     let mut value = 1;
     loop {
         value = 1 - value;
-        match value {
-            0 => led.set_low(),
-            _ => led.set_high(),
-        }
-        .unwrap();
+        // TODO 8 - write the value to the LED
 
-        for _ in 0..50000 {
-            unsafe { asm!("nop") }
-        }
+        // TODO 14 - use the PinDriver
+
+        // TODO 9 - sleep
     }
 }
 
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic_handler(_panic: &PanicInfo) -> ! {
     loop {}
 }
