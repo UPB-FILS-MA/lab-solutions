@@ -8,8 +8,6 @@ use core::ptr::read_volatile;
 use core::ptr::write_volatile;
 
 use cortex_m_rt::entry;
-use cortex_m_rt::exception;
-use cortex_m_rt::ExceptionFrame;
 use embedded_hal::digital::ErrorType;
 use embedded_hal::digital::OutputPin;
 
@@ -68,16 +66,6 @@ impl OutputPin for PinDriver {
         unsafe { write_volatile(GPIO_OUT_SET, 1 << self.pin) }
         Ok(())
     }
-}
-
-#[exception]
-unsafe fn HardFault(_frame: &ExceptionFrame) -> ! {
-    loop {}
-}
-
-#[exception]
-unsafe fn SysTick() {
-    // execute at a fixed interval
 }
 
 // TODO 3 - make the main function the entry point
