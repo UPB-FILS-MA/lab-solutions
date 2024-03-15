@@ -7,7 +7,6 @@ use embassy_executor::Spawner;
 use embassy_rp::gpio;
 use embassy_time::Timer;
 use gpio::{Level, Output};
-use log::info;
 
 // TODO 1 - set this function as the main embassy-rs task
 //          delete #[allow(unused)]
