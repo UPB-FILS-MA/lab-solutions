@@ -28,7 +28,7 @@ jobs:
 
       - name: Compile check
         run: |
-          cargo workspace check --color=always
+          cargo workspace build --color=always --bin solution
       
       - name: Clippy check
         run: |
