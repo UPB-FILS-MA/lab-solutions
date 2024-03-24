@@ -3,7 +3,15 @@
 
 # This table is used to specify the member crates of this workspace.
 [workspace]
-members = ["utils", "lab02/bare_metal", "lab02/pac", "lab02/embassy", "lab02/input"]
+members = [
+    "utils",
+    "lab02/bare_metal",
+    "lab02/pac",
+    "lab02/embassy",
+    "lab02/input",
+    "lab03/hal",
+    "lab03/ex5",
+]
 exclude = ["build_script"]
 # The resolver is a component responsible for determining the versions of 
 # dependencies that should be used to build a Rust project.
@@ -25,7 +33,7 @@ edition = "2021"
 # This setting controls the ammount of debug information included in the
 # compiled binary, 2 being the highest setting possible.
 debug = 2
-panic="abort"
-lto=true
-opt-level="z"
-codegen-units=1
+panic = "abort"
+lto = true
+opt-level = "z"
+codegen-units = 1

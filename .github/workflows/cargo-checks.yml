@@ -17,16 +17,19 @@ jobs:
         run: |
           cargo --version --verbose
           rustc --version
-          rustfmt --version    
+          rustfmt --version  
 
       - name: Format check
         run: |
           cargo fmt --check
 
+      - name: Install cargo workspace
+        run: cargo install cargo-workspace
+
       - name: Compile check
         run: |
-          cargo check
+          cargo workspace check --color=always
       
       - name: Clippy check
         run: |
-          cargo clippy -- -D warnings
+          cargo workspace clippy --color=always -- -D warnings

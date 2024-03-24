@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 rp2040-boot2 = "0.3"
 cortex-m-rt = { version = "0.7.3" }
-rp2040-pac = { version = "0.6.0", features = ["critical-section"] }
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+rp2040-pac = { version = "0.6.0", features = ["critical-section"]}
 embedded-hal = "1.0.0"
 critical-section = "1.1.2"
