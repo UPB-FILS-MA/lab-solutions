@@ -1,0 +1,12 @@
+[package]
+name = "lab04_ex6"
+authors.workspace = true
+version.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cortex-m-rt = "0.7.3"
+rp2040-boot2 = "0.3"

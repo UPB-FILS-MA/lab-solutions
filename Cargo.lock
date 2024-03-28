@@ -914,6 +914,66 @@ dependencies = [
 ]
 
 [[package]]
+name = "lab04_ex2"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "embassy-executor",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "log",
+]
+
+[[package]]
+name = "lab04_ex3"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "embassy-executor",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "log",
+]
+
+[[package]]
+name = "lab04_ex4"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "embassy-executor",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "log",
+]
+
+[[package]]
+name = "lab04_ex5"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "embassy-executor",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "log",
+]
+
+[[package]]
+name = "lab04_ex6"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "rp2040-boot2",
+]
+
+[[package]]
 name = "lalrpop"
 version = "0.19.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
