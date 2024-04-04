@@ -15,7 +15,9 @@ members = [
     "lab04/lab04_ex3", 
     "lab04/lab04_ex4", 
     "lab04/lab04_ex5", 
-    "lab04/lab04_ex6"
+    "lab04/lab04_ex6",
+    "lab05/lab05_ex2",
+    "lab05/lab05_ex3_4_5"
 ]
 exclude = ["build_script"]
 # The resolver is a component responsible for determining the versions of 

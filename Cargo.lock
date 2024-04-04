@@ -105,6 +105,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed570934406eb16438a4e976b1b4500774099c13b8cb96eec99f620f05090ddf"
 
 [[package]]
+name = "byte-slice-cast"
+version = "1.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c3ac9f8b63eca6fd385229b3675f6cc0dc5c8a5c8a54a59d4f52ffd670d87b0c"
+
+[[package]]
 name = "bytemuck"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -285,6 +291,12 @@ dependencies = [
  "redox_users",
  "winapi",
 ]
+
+[[package]]
+name = "display-interface"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7517c040926d7b02b111884aa089177db80878533127f7c1b480d852c5fb4112"
 
 [[package]]
 name = "document-features"
@@ -528,6 +540,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "embedded-graphics"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "750082c65094fbcc4baf9ba31583ce9a8bb7f52cadfb96f6164b1bc7f922f32b"
+dependencies = [
+ "az",
+ "byteorder",
+ "embedded-graphics-core",
+ "float-cmp",
+ "micromath",
+]
+
+[[package]]
+name = "embedded-graphics-core"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b8b1239db5f3eeb7e33e35bd10bd014e7b2537b17e071f726a09351431337cfa"
+dependencies = [
+ "az",
+ "byteorder",
+]
+
+[[package]]
 name = "embedded-hal"
 version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -642,6 +677,15 @@ name = "fixedbitset"
 version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ce7134b9999ecaf8bcd65542e436736ef32ddca1b3e06094cb6ec5755203b80"
+
+[[package]]
+name = "float-cmp"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e1267f4ac4f343772758f7b1bdcbe767c218bbab93bb432acbf5162bbf85a6c4"
+dependencies = [
+ "num-traits",
+]
 
 [[package]]
 name = "fnv"
@@ -974,6 +1018,40 @@ dependencies = [
 ]
 
 [[package]]
+name = "lab05_ex2"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "embassy-executor",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "log",
+]
+
+[[package]]
+name = "lab05_ex3_4_5"
+version = "0.1.0"
+dependencies = [
+ "byte-slice-cast",
+ "cortex-m-rt",
+ "display-interface",
+ "embassy-embedded-hal",
+ "embassy-executor",
+ "embassy-futures",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "embedded-graphics",
+ "embedded-hal 1.0.0",
+ "heapless 0.8.0",
+ "log",
+ "st7789",
+]
+
+[[package]]
 name = "lalrpop"
 version = "0.19.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1048,6 +1126,12 @@ name = "memchr"
 version = "2.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "523dc4f511e55ab87b694dc30d0f820d60906ef06413f93d4d7a1385599cc149"
+
+[[package]]
+name = "micromath"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc4010833aea396656c2f91ee704d51a6f1329ec2ab56ffd00bfd56f7481ea94"
 
 [[package]]
 name = "nb"
@@ -1504,6 +1588,19 @@ checksum = "f3e6ad23b128192ed337dfa4f1b8099ced0c2bf30d61e551b65fda5916dbb850"
 dependencies = [
  "encode_unicode",
  "serde",
+]
+
+[[package]]
+name = "st7789"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cba7306a9ca07ffcafd13ac1eaac2d5cedc8e9fc0d342ef674e0f0d059c8f8a9"
+dependencies = [
+ "display-interface",
+ "embedded-graphics-core",
+ "embedded-hal 0.2.7",
+ "heapless 0.7.17",
+ "nb 1.1.0",
 ]
 
 [[package]]
