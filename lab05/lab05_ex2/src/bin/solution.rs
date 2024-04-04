@@ -14,7 +14,7 @@ use embassy_sync::channel::{Channel, Sender};
 
 enum LedCommand {
     IncreaseI,
-    DecreaseI
+    DecreaseI,
 }
 
 static TOP: u16 = 0x8000;
@@ -22,7 +22,10 @@ static TOP: u16 = 0x8000;
 static CHANNEL: Channel<ThreadModeRawMutex, LedCommand, 64> = Channel::new();
 
 #[embassy_executor::task]
-async fn button_a_pressed(mut button_a: Input<'static, PIN_12>, channel_sender: Sender<'static, ThreadModeRawMutex, LedCommand, 64>) {
+async fn button_a_pressed(
+    mut button_a: Input<'static, PIN_12>,
+    channel_sender: Sender<'static, ThreadModeRawMutex, LedCommand, 64>,
+) {
     loop {
         button_a.wait_for_falling_edge().await;
         channel_sender.send(LedCommand::IncreaseI).await;
@@ -30,7 +33,10 @@ async fn button_a_pressed(mut button_a: Input<'static, PIN_12>, channel_sender: 
 }
 
 #[embassy_executor::task]
-async fn button_b_pressed(mut button_b: Input<'static, PIN_13>, channel_sender: Sender<'static, ThreadModeRawMutex, LedCommand, 64>) {
+async fn button_b_pressed(
+    mut button_b: Input<'static, PIN_13>,
+    channel_sender: Sender<'static, ThreadModeRawMutex, LedCommand, 64>,
+) {
     loop {
         button_b.wait_for_falling_edge().await;
         channel_sender.send(LedCommand::DecreaseI).await;
@@ -50,8 +56,12 @@ async fn main(spawner: Spawner) {
 
     let mut pwm = Pwm::new_output_a(peripherals.PWM_CH0, peripherals.PIN_0, config.clone());
 
-    spawner.spawn(button_a_pressed(button_a, CHANNEL.sender())).unwrap();
-    spawner.spawn(button_b_pressed(button_b, CHANNEL.sender())).unwrap();
+    spawner
+        .spawn(button_a_pressed(button_a, CHANNEL.sender()))
+        .unwrap();
+    spawner
+        .spawn(button_b_pressed(button_b, CHANNEL.sender()))
+        .unwrap();
 
     loop {
         let value = CHANNEL.receive().await;

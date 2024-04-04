@@ -14,7 +14,9 @@ use embassy_rp::peripherals::{PIN_0, PIN_12, PIN_13, PIN_14, PIN_15, PIN_16, PIN
 use embassy_rp::pwm::{Config as PwmConfig, Pwm};
 
 // ADC
-use embassy_rp::adc::{Adc, Async, InterruptHandler as InterruptHandlerAdc, Config as AdcConfig, Channel as AdcChannel};
+use embassy_rp::adc::{
+    Adc, Async, Channel as AdcChannel, Config as AdcConfig, InterruptHandler as InterruptHandlerAdc,
+};
 
 // USB
 use embassy_rp::usb::{Driver, InterruptHandler};
@@ -35,8 +37,8 @@ use embassy_futures::select::Either::{First, Second};
 // Display
 use core::fmt::Write;
 use embassy_embedded_hal::shared_bus::blocking::spi::SpiDeviceWithConfig;
-use embassy_rp::spi::{Blocking, Spi};
 use embassy_rp::spi;
+use embassy_rp::spi::{Blocking, Spi};
 use embassy_sync::blocking_mutex::raw::NoopRawMutex;
 use embassy_sync::blocking_mutex::Mutex;
 use embedded_graphics::mono_font::iso_8859_16::FONT_10X20;
@@ -55,8 +57,8 @@ bind_interrupts!(struct Irqs {
     USBCTRL_IRQ => InterruptHandler<USB>;
     ADC_IRQ_FIFO => InterruptHandlerAdc;
 });
- 
-// TODO 11: 
+
+// TODO 11:
 // (Method 1) Use a different command enum that also encapsulates the command for changing the intensity.
 // Hint: You can use something like this:
 // ```rust
@@ -74,7 +76,7 @@ bind_interrupts!(struct Irqs {
 enum LedColor {
     Red,
     Green,
-    Blue
+    Blue,
 }
 
 // You can use this to declare the `compare_top` for each PWM
@@ -91,14 +93,17 @@ async fn logger_task(driver: Driver<'static, USB>) {
     embassy_usb_logger::run!(1024, log::LevelFilter::Info, driver);
 }
 
-// TODO 4: Create 4 separate tasks, one for each button. 
+// TODO 4: Create 4 separate tasks, one for each button.
 //         Each task will wait for the button press and send an Option<LedColor> command over the channel depending on the button's function:
 //         - button A: make the RGB LED red
 //         - button B: make the RGB LED green
 //         - button X: make the RGB LED blue
 //         - button Y: turn the RGB LED off
 #[embassy_executor::task]
-async fn button_a_pressed(mut button_a: Input<'static, PIN_12>, channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>) {
+async fn button_a_pressed(
+    mut button_a: Input<'static, PIN_12>,
+    channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>,
+) {
     loop {
         info!("waiting for button press A");
         button_a.wait_for_falling_edge().await;
@@ -107,7 +112,10 @@ async fn button_a_pressed(mut button_a: Input<'static, PIN_12>, channel_sender: 
 }
 
 #[embassy_executor::task]
-async fn button_b_pressed(mut button_b: Input<'static, PIN_13>, channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>) {
+async fn button_b_pressed(
+    mut button_b: Input<'static, PIN_13>,
+    channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>,
+) {
     loop {
         info!("waiting for button press B");
         button_b.wait_for_falling_edge().await;
@@ -116,7 +124,10 @@ async fn button_b_pressed(mut button_b: Input<'static, PIN_13>, channel_sender: 
 }
 
 #[embassy_executor::task]
-async fn button_x_pressed(mut button_x: Input<'static, PIN_14>, channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>) {
+async fn button_x_pressed(
+    mut button_x: Input<'static, PIN_14>,
+    channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>,
+) {
     loop {
         info!("waiting for button press X");
         button_x.wait_for_falling_edge().await;
@@ -125,7 +136,10 @@ async fn button_x_pressed(mut button_x: Input<'static, PIN_14>, channel_sender: 
 }
 
 #[embassy_executor::task]
-async fn button_y_pressed(mut button_y: Input<'static, PIN_15>, channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>) {
+async fn button_y_pressed(
+    mut button_y: Input<'static, PIN_15>,
+    channel_sender: Sender<'static, ThreadModeRawMutex, Option<LedColor>, 64>,
+) {
     loop {
         info!("waiting for button press Y");
         button_y.wait_for_falling_edge().await;
@@ -137,7 +151,11 @@ async fn button_y_pressed(mut button_y: Input<'static, PIN_15>, channel_sender: 
 // You should wait a while in between samples (around 200ms should suffice).
 // Your task should have 3 parameters: Adc, AdcChannel and Sender.
 #[embassy_executor::task]
-async fn potentiometer_read(mut adc: Adc<'static, Async>, mut potentiometer: AdcChannel<'static>, channel_sender: Sender<'static, ThreadModeRawMutex, u16, 64>) {
+async fn potentiometer_read(
+    mut adc: Adc<'static, Async>,
+    mut potentiometer: AdcChannel<'static>,
+    channel_sender: Sender<'static, ThreadModeRawMutex, u16, 64>,
+) {
     loop {
         info!("before read");
         Timer::after_millis(200).await;
@@ -200,14 +218,14 @@ async fn main(spawner: Spawner) {
 
     // ------------------------------------------------------------------------
 
-    // (START EXERCISE 3) 
+    // (START EXERCISE 3)
     // TODO 1: Declare buttons A, B, X, Y
     let button_a = Input::new(peripherals.PIN_12, Pull::Up);
     let button_b = Input::new(peripherals.PIN_13, Pull::Up);
     let button_x = Input::new(peripherals.PIN_14, Pull::Up);
     let button_y = Input::new(peripherals.PIN_15, Pull::Up);
 
-    //(START EXERCISE 4) 
+    //(START EXERCISE 4)
     // TODO 10: Declare ADC and potentiometer on ADC0
     let adc = Adc::new(peripherals.ADC, Irqs, AdcConfig::default());
     let potentiometer = AdcChannel::new_pin(peripherals.PIN_26, Pull::None);
@@ -232,12 +250,26 @@ async fn main(spawner: Spawner) {
         Pwm::new_output_b(peripherals.PWM_CH2, peripherals.PIN_5, config_blue.clone());
 
     // TODO 5: Spawn all the button tasks.
-    spawner.spawn(button_a_pressed(button_a, COLOR_CHANNEL.sender())).unwrap();
-    spawner.spawn(button_b_pressed(button_b, COLOR_CHANNEL.sender())).unwrap();
-    spawner.spawn(button_x_pressed(button_x, COLOR_CHANNEL.sender())).unwrap();
-    spawner.spawn(button_y_pressed(button_y, COLOR_CHANNEL.sender())).unwrap();
+    spawner
+        .spawn(button_a_pressed(button_a, COLOR_CHANNEL.sender()))
+        .unwrap();
+    spawner
+        .spawn(button_b_pressed(button_b, COLOR_CHANNEL.sender()))
+        .unwrap();
+    spawner
+        .spawn(button_x_pressed(button_x, COLOR_CHANNEL.sender()))
+        .unwrap();
+    spawner
+        .spawn(button_y_pressed(button_y, COLOR_CHANNEL.sender()))
+        .unwrap();
     // TODO 13: Spawn the ADC sampling task.
-    spawner.spawn(potentiometer_read(adc, potentiometer, INTENSITY_CHANNEL.sender())).unwrap();
+    spawner
+        .spawn(potentiometer_read(
+            adc,
+            potentiometer,
+            INTENSITY_CHANNEL.sender(),
+        ))
+        .unwrap();
 
     let mut led_color: Option<LedColor> = None;
     let mut led_intensity: u16 = 0;
@@ -249,7 +281,7 @@ async fn main(spawner: Spawner) {
             First(color_opt) => {
                 // received on COLOR_CHANNEL first
                 led_color = color_opt;
-            },
+            }
             Second(intensity) => {
                 // received on INTENSITY_CHANNEL first
                 info!("change intensity {intensity}");
@@ -261,7 +293,7 @@ async fn main(spawner: Spawner) {
                             config_red.compare_b = config_red.top / 4095 * intensity;
                             config_green.compare_a = 0;
                             config_blue.compare_b = 0;
-                        },
+                        }
                         LedColor::Green => {
                             info!("green");
                             config_red.compare_b = 0;
@@ -282,14 +314,14 @@ async fn main(spawner: Spawner) {
                 }
             }
         }
-        // TODO 8: Check what command we have. 
+        // TODO 8: Check what command we have.
         // Depending on the command, change the PWM config of the correct color pin (in this case you will set it at max intensity).
         // The rest of the colors will be set to 0.
         // Hint: To get the value out of the `Option`, you can do it this way:
         // ```rust
         // if let Some(ref color) = color_option { /* use color */ }
         // ```
-        // TODO 14: 
+        // TODO 14:
         // (Method 1) Check for the new type of command. If it's ChangeIntensity, modify the intensity of the active color.
         // (Method 2) Check which channel receives a value first by using `select`. If we get a value over the COLOR_CHANNEL first, we
         //            set the color. If we get a value over the INTENSITY_CHANNEL first, we set the intensity.
@@ -304,7 +336,12 @@ async fn main(spawner: Spawner) {
         pwm_blue.set_config(&config_blue);
 
         let mut text = String::<64>::new();
-        write!(text, "Intensity: {} \n Color: {:?}", led_intensity, led_color).unwrap();
+        write!(
+            text,
+            "Intensity: {} \n Color: {:?}",
+            led_intensity, led_color
+        )
+        .unwrap();
 
         Text::new(&text, Point::new(40, 110), style)
             .draw(&mut display)
