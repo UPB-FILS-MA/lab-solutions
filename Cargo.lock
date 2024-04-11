@@ -1052,6 +1052,54 @@ dependencies = [
 ]
 
 [[package]]
+name = "lab06_ex2"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "embassy-executor",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "embedded-hal 1.0.0",
+ "log",
+]
+
+[[package]]
+name = "lab06_ex3_4"
+version = "0.1.0"
+dependencies = [
+ "cortex-m-rt",
+ "embassy-executor",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "log",
+]
+
+[[package]]
+name = "lab06_ex5"
+version = "0.1.0"
+dependencies = [
+ "byte-slice-cast",
+ "cortex-m-rt",
+ "display-interface",
+ "embassy-embedded-hal",
+ "embassy-executor",
+ "embassy-futures",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "embedded-graphics",
+ "embedded-hal 1.0.0",
+ "heapless 0.8.0",
+ "log",
+ "st7789",
+]
+
+[[package]]
 name = "lalrpop"
 version = "0.19.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
