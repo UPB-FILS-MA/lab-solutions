@@ -1100,6 +1100,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "lab07_all"
+version = "0.1.0"
+dependencies = [
+ "byte-slice-cast",
+ "cortex-m-rt",
+ "display-interface",
+ "embassy-embedded-hal",
+ "embassy-executor",
+ "embassy-futures",
+ "embassy-rp",
+ "embassy-sync 0.5.0",
+ "embassy-time",
+ "embassy-usb-logger",
+ "embedded-graphics",
+ "embedded-hal 1.0.0",
+ "embedded-hal-async",
+ "heapless 0.8.0",
+ "log",
+ "st7789",
+]
+
+[[package]]
 name = "lalrpop"
 version = "0.19.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
