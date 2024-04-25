@@ -1,5 +1,5 @@
 [package]
-name = "lab04_ex4"
+name = "lab08_ex1_2"
 authors.workspace = true
 version.workspace = true
 rust-version.workspace = true
